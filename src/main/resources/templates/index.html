@@ -6,85 +6,126 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
-
-    <!-- Include JavaScript in the footer -->
-    <script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
-    <script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+    <!-- Bootstrap 5 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 
     <title>DevOps Warrior - MongoDB App</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .form-card {
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            font-size: 0.9rem;
+        }
+
+        .footer {
+            margin-top: 30px;
+            background-color: #343a40;
+            color: white;
+            padding: 15px 0;
+            font-size: 0.85rem;
+        }
+
+        .footer a {
+            color: #ffc107;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .header-logo {
+            max-height: 80px;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="container">
-        <h1 class="text-center">DevOps Warrior - MongoDB Web App</h1>
-        <div class="col-md-6">
-            <form name="saveUser" action="/save" method="post" class="form-horizontal">
-                <div class="form-group">
-                    <label for="firstName">First Name:</label>
-                    <input type="text" id="firstName" class="form-control" placeholder="First Name" name="firstName" />
-                </div>
-
-                <div class="form-group">
-                    <label for="lastName">Last Name:</label>
-                    <input type="text" id="lastName" class="form-control" placeholder="Last Name" name="lastName">
-                </div>
-
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" class="form-control" placeholder="Email" name="email">
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-            </form>
+    <div class="container py-4">
+        <div class="text-center mb-3">
+            <img th:src="@{/img/devopswarrior-logo.jpg}" alt="DevOps Warrior Logo" class="header-logo">
+            <h2 class="mt-2">DevOps Warrior - MongoDB Web App</h2>
+            <p class="text-muted">Effortlessly manage your data with MongoDB</p>
         </div>
 
-        <div class="col-md-12">
-            <h2>Saved Users</h2>
-            <table id="usersTable" class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Email</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="row-md-8">
-            <div class="col-md-3">
-                <img th:src="@{/img/devopswarrior-logo.jpg}" alt="logo" height="200">
+        <div class="row g-4">
+            <!-- Form Section -->
+            <div class="col-md-6">
+                <div class="card form-card p-3">
+                    <h5 class="text-center mb-3">Add a New User</h5>
+                    <form name="saveUser" action="/save" method="post">
+                        <div class="mb-2">
+                            <label for="firstName" class="form-label">First Name</label>
+                            <input type="text" id="firstName" class="form-control" placeholder="Enter first name" name="firstName" required>
+                        </div>
+                        <div class="mb-2">
+                            <label for="lastName" class="form-label">Last Name</label>
+                            <input type="text" id="lastName" class="form-control" placeholder="Enter last name" name="lastName" required>
+                        </div>
+                        <div class="mb-2">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" id="email" class="form-control" placeholder="Enter email address" name="email" required>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="col-md-8">
-                <h4 class="text-center">DevOps Warrior - Empowering Your IT Journey</h4>
-              <!-- <h4 class="text-center">Contact @ +91-1234567890</h4>-->
-                <h5 class="text-center">
-                    Copyright &copy; 2025 by <a href="http://devopswarrior.com/">DevOps Warrior</a>
-                </h5>
+
+            <!-- Saved Users Section -->
+            <div class="col-md-6">
+                <h5 class="text-center">Saved Users</h5>
+                <div class="table-responsive">
+                    <table id="usersTable" class="table table-bordered table-hover table-sm">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
 
-    <script>
-        $.ajax({
-            url: "/api/users",
-            success: function(response) {
-                $.each(response, function(i, item) {
-                    var row = $("<tr />");
-                    $("#usersTable").append(row);
+    <!-- Footer -->
+    <div class="footer text-center">
+        <div class="container">
+            <h6>DevOps Warrior - Empowering Your IT Journey</h6>
+            <p>Contact: +91-1234567890 | Email: <a href="mailto:contact@devopswarrior.com">contact@devopswarrior.com</a></p>
+            <p>&copy; 2025 by <a href="http://devopswarrior.com/">DevOps Warrior</a>. All Rights Reserved.</p>
+        </div>
+    </div>
 
-                    row.append($("<td>" + item.id + "</td>"));
-                    row.append($("<td>" + item.firstName + "</td>"));
-                    row.append($("<td>" + item.lastName + "</td>"));
-                    row.append($("<td>" + item.email + "</td>"));
+    <!-- Bootstrap 5 JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Fetch and display saved users
+        fetch("/api/users")
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.querySelector("#usersTable tbody");
+                data.forEach(item => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${item.firstName}</td>
+                        <td>${item.lastName}</td>
+                        <td>${item.email}</td>
+                    `;
+                    tableBody.appendChild(row);
                 });
-            }
-        });
+            });
     </script>
 </body>
+
 </html>
+
